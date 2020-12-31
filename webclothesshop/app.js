@@ -1,21 +1,15 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const HttpError = require("./error/error");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const categoriesRoutes=require('./routes/categoriesRoute');
 require("dotenv/config");
-const categoriesRouters = require("./routes/categoryRoutes");
-const productRouters=require("./routes/productRoute");
-const userRouters=require("./routes/userRoute");
-const orderRouters = require("./routes/orderRoute");
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/upload/images", express.static(path.join("upload", "images")));
-
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -26,22 +20,19 @@ app.use((req, res, next) => {
 
     next();
 });
-
-app.use("/api/categories", categoriesRouters);
-app.use("/api/products", productRouters);
-app.use("/api/users", userRouters);
-app.use("/api/orders",orderRouters);
+app.use('/api/categories', categoriesRoutes);
 
 app.use((req, res, next) => {
-    const error = new HttpError("Could not find this route.", 404);
+    const error = new   Error("Could not find this route.", 404);
     throw error;
 });
+
 app.use((error, req, res, next) => {
     if (res.headerSent) {
         return next(error);
     }
     res.status(error.code || 500);
-    res.json({ message: error.message || "An unknown error occurred!" });
+    res.json({ message: "Con me m" || "An unknown error occurred!" });
 });
 
 mongoose
