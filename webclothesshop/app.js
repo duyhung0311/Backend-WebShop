@@ -6,10 +6,15 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const categoriesRoutes=require('./routes/categoriesRoute');
+const productRoutes=require('./routes/productRoute');
 require("dotenv/config");
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(
+    "/upload/imagesProduct",
+    express.static(path.join("upload", "imagesProduct"))
+);
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -20,7 +25,9 @@ app.use((req, res, next) => {
 
     next();
 });
+
 app.use('/api/categories', categoriesRoutes);
+app.use('/api/products', productRoutes);
 
 app.use((req, res, next) => {
     const error = new   Error("Could not find this route.", 404);

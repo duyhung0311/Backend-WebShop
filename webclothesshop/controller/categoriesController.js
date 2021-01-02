@@ -69,7 +69,7 @@ const deleteCate = async (req, res) => {
     const id = req.params.cid;
     let categories;
     try {
-        categories = await Category.findByIdAndRemove(id);
+        categories = await Category.findByIdAndDelete(id);
         return res.json({
             message: true,
             "Delete successful": categories,
