@@ -8,7 +8,8 @@ const cors = require("cors");
 const categoriesRoutes=require('./routes/categoriesRoute');
 const productRoutes=require('./routes/productRoute');
 const userRoutes = require('./routes/userRoute');
-const HttpError = require("./error-handle/http-error");
+const orderRoutes=require('./routes/orderRoute')
+// const HttpError = require("./error-handle/http-error");
 
 require("dotenv/config");
 const app = express();
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
-
+app.use('/api/order',orderRoutes);
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;
