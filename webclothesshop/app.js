@@ -7,6 +7,9 @@ const path = require("path");
 const cors = require("cors");
 const categoriesRoutes=require('./routes/categoriesRoute');
 const productRoutes=require('./routes/productRoute');
+const userRoutes = require('./routes/userRoute');
+const HttpError = require("./error-handle/http-error");
+
 require("dotenv/config");
 const app = express();
 app.use(bodyParser.json());
@@ -28,19 +31,22 @@ app.use((req, res, next) => {
 
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
-    const error = new   Error("Could not find this route.", 404);
-    throw error;
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+});
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
 });
 
-app.use((error, req, res, next) => {
-    if (res.headerSent) {
-        return next(error);
-    }
-    res.status(error.code || 500);
-    res.json({ message: "Con me m" || "An unknown error occurred!" });
-});
 
 mongoose
     .connect(
@@ -57,3 +63,4 @@ mongoose
     .catch((error) => {
         console.log(error);
     });
+module.exports = app;
