@@ -80,4 +80,18 @@ const deleteCate = async (req, res) => {
         });
     }
 }
+// const getProductByCateId = async (req, res, next) => {
+//     const CateId = req.params.cid;
+//     let products;
+//     products = await Product.find({ categoryId: CateId });   
+//     try {
+//         res.status(200).json({
+//             products,
+//         })
+//     } catch (error) {
+//         res.status(500).json({
+//             message:"Error"
+//         })
+//     }
+// };
 module.exports = { createCategory, getlistCategory, getCateByID,updateCate,deleteCate};
