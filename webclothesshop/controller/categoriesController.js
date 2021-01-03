@@ -21,7 +21,7 @@ const getlistCategory = async (req, res) => {
         listCate= await Category.find();
         return res.json({
             message:true,
-            "Item created":listCate
+            "ListCateCreated":listCate
         });
     } catch (error) {
         res.json({
@@ -37,7 +37,7 @@ const getCateByID = async(req,res) =>{
         categories= await Category.findById(id);
         return res.json({
             message:true,
-            "Category by Id":categories
+            "CategorybyIdCreated":categories
         })
     } catch (error) {
         res.status(500).json({
@@ -57,7 +57,7 @@ const updateCate = async (req,res)=>{
         categories=await Category.findByIdAndUpdate(id,update);
         return res.json({
             message:true,
-            "Update successful":update,
+            "UpdateCreated":update,
         });
     } catch (error) {
         res.status(500).json({
@@ -72,7 +72,7 @@ const deleteCate = async (req, res) => {
         categories = await Category.findByIdAndDelete(id);
         return res.json({
             message: true,
-            "Delete successful": categories,
+            "DeleteSuccessfully": categories,
         });
     } catch (error) {
         res.status(500).json({
