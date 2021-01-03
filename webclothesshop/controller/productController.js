@@ -52,7 +52,7 @@ const getAllPro=async(req,res)=>{
         console.log(listPro);
         return res.json({
             message: true,
-            "Product List created": listPro
+            "ProductList": listPro
         });
     } catch (error) {
         res.json({
